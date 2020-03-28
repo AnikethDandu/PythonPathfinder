@@ -1,4 +1,5 @@
 import pygame
+import a_star
 
 from colors import WHITE, RED, BLACK, GREEN
 
@@ -16,8 +17,8 @@ SCREEN.fill(WHITE)
 
 
 # Creates a rectangle with the specified size and position
-def return_grid_square(x_pos, y_pos, length):
-    return pygame.rect.Rect(x_pos, y_pos, length, length)
+def return_grid_square(x, y, length):
+    return pygame.rect.Rect(x, y, length, length)
 
 
 # Initialize the grid square sizes
@@ -25,6 +26,12 @@ RECT_LENGTH = SCREEN_SIZE[0] // ROWS
 RECT_WIDTH = 2
 
 program_running = True
+
+START = [2, 7]
+END = [15, 13]
+
+a_star.x_pos = START[0]
+a_star.y_pos = START[1]
 
 # Game loop
 while program_running:
@@ -44,11 +51,15 @@ while program_running:
                              RECT_WIDTH)
 
     # Draw the starting point and endpoint
-    pygame.draw.rect(SCREEN, GREEN, return_grid_square(25, 25, RECT_LENGTH))
-    pygame.draw.rect(SCREEN, RED, return_grid_square(325, 325, RECT_LENGTH))
+    pygame.draw.rect(SCREEN, GREEN, return_grid_square(START[0] * 25, START[1] * 25, RECT_LENGTH))
+    pygame.draw.rect(SCREEN, RED, return_grid_square(END[0] * 25, END[1] * 25, RECT_LENGTH), 2)
 
     # Updates screen
     pygame.display.flip()
+
+    if not a_star.finished:
+        a_star.find_path(SCREEN, END[0], END[1])
+        pygame.time.wait(100)
 
 # Stop the program once the user closes the window
 pygame.quit()
