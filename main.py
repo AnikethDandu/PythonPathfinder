@@ -25,13 +25,34 @@ def return_grid_square(x, y, length):
 RECT_LENGTH = SCREEN_SIZE[0] // ROWS
 RECT_WIDTH = 2
 
+# Program loop variable
 program_running = True
 
-START = [2, 7]
-END = [15, 13]
+# TODO: Add ability for user to place start and end
+# Pre-defined start and end
+START = (6, 7)
+END = (14, 14)
 
-a_star.x_pos = START[0]
-a_star.y_pos = START[1]
+# TODO: Add ability for user to place obstacles
+# Pre-defined obstacles
+GRID[5][5] = 1
+GRID[6][5] = 1
+GRID[7][5] = 1
+GRID[8][5] = 1
+GRID[8][6] = 1
+# GRID[8][7] = 1
+GRID[8][8] = 1
+GRID[8][9] = 1
+GRID[7][9] = 1
+GRID[6][9] = 1
+GRID[5][9] = 1
+GRID[0][15] = 1
+GRID[0][22] = 1
+GRID[1][22] = 1
+GRID[2][22] = 1
+
+# Find path
+a_star.find_path(GRID, START, END)
 
 # Game loop
 while program_running:
@@ -43,23 +64,24 @@ while program_running:
         # Stop the program if the x button is clicked
         if event.type == pygame.QUIT:
             program_running = False
-
-    # Draw the grid
+    # Draw the empty grid
     for x in range(ROWS):
         for y in range(COLS):
             pygame.draw.rect(SCREEN, BLACK, return_grid_square(RECT_LENGTH * x, RECT_LENGTH * y, RECT_LENGTH),
                              RECT_WIDTH)
-
-    # Draw the starting point and endpoint
-    pygame.draw.rect(SCREEN, GREEN, return_grid_square(START[0] * 25, START[1] * 25, RECT_LENGTH))
-    pygame.draw.rect(SCREEN, RED, return_grid_square(END[0] * 25, END[1] * 25, RECT_LENGTH), 2)
-
+    # Draw start and end
+    pygame.draw.rect(SCREEN, GREEN, return_grid_square(START[0] * 25+2, START[1] * 25+2, RECT_LENGTH-4))
+    pygame.draw.rect(SCREEN, RED, return_grid_square(END[0] * 25, END[1] * 25, RECT_LENGTH), 4)
+    # Draw obstacles
+    for x in range(25):
+        for y in range(25):
+            if GRID[x][y] == 1:
+                pygame.draw.rect(SCREEN, BLACK, return_grid_square(x*25, y*25, RECT_LENGTH))
     # Updates screen
     pygame.display.flip()
+    # Draw path
+    a_star.draw_path(SCREEN)
 
-    if not a_star.finished:
-        a_star.find_path(SCREEN, END[0], END[1])
-        pygame.time.wait(100)
 
 # Stop the program once the user closes the window
 pygame.quit()
