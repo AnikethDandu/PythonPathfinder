@@ -3,9 +3,10 @@ import math
 
 class Node:
     # Initialize the node with a parent (default: None), position (default: (0, 0)), and g, h, and f costs
-    def __init__(self, parent=None, position=(0, 0)):
-        self.parent = parent
+    def __init__(self, previous=None, position=(0, 0), distance=math.inf):
+        self.previous = previous
         self.position = position
+        self.distance = distance
         self.g_cost = 0
         self.h_cost = 0
         self.f_cost = 0

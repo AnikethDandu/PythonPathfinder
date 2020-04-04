@@ -1,7 +1,8 @@
 import pygame
 import a_star
+import dijkstra
 
-from colors import WHITE, RED, BLACK, GREEN
+from colors import WHITE, RED, BLACK, GREEN, BLUE
 
 # Initialize PyGame
 pygame.init()
@@ -30,8 +31,8 @@ program_running = True
 
 # TODO: Add ability for user to place start and end
 # Pre-defined start and end
-START = (6, 7)
-END = (14, 14)
+START = (1, 2)
+END = (12, 5)
 
 # TODO: Add ability for user to place obstacles
 # Pre-defined obstacles
@@ -40,7 +41,7 @@ GRID[6][5] = 1
 GRID[7][5] = 1
 GRID[8][5] = 1
 GRID[8][6] = 1
-# GRID[8][7] = 1
+GRID[8][7] = 1
 GRID[8][8] = 1
 GRID[8][9] = 1
 GRID[7][9] = 1
@@ -50,6 +51,26 @@ GRID[0][15] = 1
 GRID[0][22] = 1
 GRID[1][22] = 1
 GRID[2][22] = 1
+GRID[2][23] = 1
+GRID[10][5] = 1
+GRID[10][4] = 1
+GRID[10][6] = 1
+GRID[10][7] = 1
+GRID[10][8] = 1
+GRID[10][3] = 1
+GRID[10][2] = 1
+GRID[10][13] = 1
+GRID[9][13] = 1
+GRID[8][13] = 1
+GRID[7][13] = 1
+GRID[11][13] = 1
+GRID[12][13] = 1
+GRID[6][13] = 1
+GRID[5][13] = 1
+GRID[14][13] = 1
+GRID[15][13] = 1
+GRID[13][13] = 1
+
 
 # Find path
 a_star.find_path(GRID, START, END)
@@ -70,7 +91,7 @@ while program_running:
             pygame.draw.rect(SCREEN, BLACK, return_grid_square(RECT_LENGTH * x, RECT_LENGTH * y, RECT_LENGTH),
                              RECT_WIDTH)
     # Draw start and end
-    pygame.draw.rect(SCREEN, GREEN, return_grid_square(START[0] * 25+2, START[1] * 25+2, RECT_LENGTH-4))
+    pygame.draw.rect(SCREEN, GREEN, return_grid_square(START[0] * 25+2, START[1] * 25+2, RECT_LENGTH-3))
     pygame.draw.rect(SCREEN, RED, return_grid_square(END[0] * 25, END[1] * 25, RECT_LENGTH), 4)
     # Draw obstacles
     for x in range(25):
