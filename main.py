@@ -73,7 +73,13 @@ def set_end(x, y):
 def find_path():
     while not a_star.found_path:
         a_star.find_path(GRID, START, END)
-    while a_star.found_path:
+    a_star.finished_drawing_path = False
+
+
+def draw_path():
+    # Draw the path with delay to create incrementing path
+    if a_star.found_path:
+        pygame.time.wait(10)
         a_star.draw_path(SCREEN)
 
 
@@ -113,11 +119,13 @@ while program_running:
                 set_end(x, y)
             # Clear the board of the path when the c key is pressed
             if event.key == pygame.K_c:
-                clear_board()
+                if not a_star.found_path:
+                    clear_board()
             # Find and draw the path when the space bar is pressed
             if event.key == pygame.K_SPACE:
                 clear_board()
                 find_path()
+                a_star.found_path = True
 
     # Draw board
     draw_grid()
@@ -128,6 +136,9 @@ while program_running:
 
     # Updates screen
     pygame.display.flip()
+
+    # Draw path if user has chosen to find path
+    draw_path()
 
 # Stop the program once the user closes the window
 pygame.quit()

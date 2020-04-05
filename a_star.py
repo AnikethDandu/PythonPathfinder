@@ -92,26 +92,24 @@ def return_node_neighbors(grid, node):
 def draw_path(screen):
     global found_path
     global finished_drawing_path
-    finished_drawing_path = False
-    while found_path:
-        if len(open_list) > 0:
-            node = open_list.pop(0)
-            pygame.draw.rect(screen, BLUE, (node.position[0] * 25, node.position[1] * 25, 25, 25))
-        else:
-            if len(closed_list) == 0:
-                finished_drawing_path = True
-        if len(closed_list) > 0:
-            node = closed_list.pop(0)
-            pygame.draw.rect(screen, (0, 200, 255), (node.position[0] * 25, node.position[1] * 25, 25, 25))
-        else:
-            if len(open_list) == 0:
-                finished_drawing_path = True
-        if finished_drawing_path:
-            if len(path) > 0:
-                node = path.pop()
-                pygame.draw.rect(screen, YELLOW, (node.position[0] * 25, node.position[1] * 25, 25, 25))
-        if len(open_list) == 0 and len(closed_list) == 0 and len(path) == 0:
-            found_path = False
+    if len(open_list) > 0:
+        node = open_list.pop(0)
+        pygame.draw.rect(screen, BLUE, (node.position[0] * 25, node.position[1] * 25, 25, 25))
+    else:
+        if len(closed_list) == 0:
+            finished_drawing_path = True
+    if len(closed_list) > 0:
+        node = closed_list.pop(0)
+        pygame.draw.rect(screen, (0, 200, 255), (node.position[0] * 25, node.position[1] * 25, 25, 25))
+    else:
+        if len(open_list) == 0:
+            finished_drawing_path = True
+    if finished_drawing_path:
+        if len(path) > 0:
+            node = path.pop()
+            pygame.draw.rect(screen, YELLOW, (node.position[0] * 25, node.position[1] * 25, 25, 25))
+    if len(open_list) == 0 and len(closed_list) == 0 and len(path) == 0:
+        found_path = False
 
 
 # Add to path list using previous node position of current node
