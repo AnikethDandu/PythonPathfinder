@@ -100,23 +100,27 @@ while program_running:
             y //= 25
             # If the left mouse button is clicked
             if event.button == 1:
-                GRID[x][y] = 1
-                pygame.draw.rect(SCREEN, BLACK, return_node(x * 25, y * 25, RECT_LENGTH))
+                if not a_star.found_path:
+                    GRID[x][y] = 1
+                    pygame.draw.rect(SCREEN, BLACK, return_node(x * 25, y * 25, RECT_LENGTH))
             # If the right mouse button is clicked
             if event.button == 3:
-                if GRID[x][y] == 1:
-                    GRID[x][y] = 0
-                    pygame.draw.rect(SCREEN, WHITE, return_node(x * 25, y * 25, RECT_LENGTH))
+                if not a_star.found_path:
+                    if GRID[x][y] == 1:
+                        GRID[x][y] = 0
+                        pygame.draw.rect(SCREEN, WHITE, return_node(x * 25, y * 25, RECT_LENGTH))
         if event.type == pygame.KEYDOWN:
             x, y = pygame.mouse.get_pos()
             x //= 25
             y //= 25
             # Change the position of the start node when the s key is pressed to the mouse location
             if event.key == pygame.K_s:
-                set_start(x, y)
+                if not a_star.found_path:
+                    set_start(x, y)
             # Change the position of the end node when the e key is pressed to the mouse location
             if event.key == pygame.K_e:
-                set_end(x, y)
+                if not a_star.found_path:
+                    set_end(x, y)
             # Clear the board of the path when the c key is pressed
             if event.key == pygame.K_c:
                 if not a_star.found_path:
