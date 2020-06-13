@@ -1,5 +1,5 @@
-# PythonPathfinder
-Python Pathfinder is a Python program that finds paths on a 25x25 grid. The user has the ability to change the start and end positions and create obstacles for the program to navigate around. The program currently uses the A* algorithm to find a path.
+# A Star Pathfinder
+A star Pathfinder is a Python program that finds paths on a 25x25 grid. The user has the ability to change the start and end positions and create obstacles for the program to navigate around. The program currently uses the A* algorithm to find a path.
 
 ## Controls
 * Left-click - place obstacle
